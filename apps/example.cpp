@@ -1,6 +1,6 @@
 #include <stdio.h>
 
-#include "tiny_stl.hpp"
+#include <tiny_stl/tiny_stl.hpp>
 
 int main(int argc, char* argv[])
 {

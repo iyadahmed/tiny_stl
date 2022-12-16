@@ -2,7 +2,7 @@
 #include <stdio.h>
 #include <string.h> // for memcmp
 
-#include "tiny_stl.hpp"
+#include <tiny_stl/tiny_stl.hpp>
 
 namespace STL_Mesh_IO {
 
