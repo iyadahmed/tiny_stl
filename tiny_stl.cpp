@@ -70,6 +70,13 @@ public:
         fclose(file);
     }
 
+    ~ASCII_File_Reader()
+    {
+        if (buffer) {
+            delete[] buffer;
+        }
+    }
+
     bool read_next_triangle(Triangle* res)
     {
         int vertex_counter = 0;
