@@ -71,40 +71,30 @@ public:
 
     bool read_next_triangle(Triangle* res)
     {
+        int vertex_counter = 0;
         while (iter < (buffer + buffer_size - 6)) {
             if (memcmp(iter, "vertex", 6) == 0) {
                 iter += 6;
 
                 char* endptr = NULL;
-                strtof(iter, &endptr);
-            }
+                // TODO: strtof error checking
+                res->vertices[vertex_counter][0] = strtof(iter, &endptr);
+                res->vertices[vertex_counter][1] = strtof(endptr, &endptr);
+                res->vertices[vertex_counter][2] = strtof(endptr, &endptr);
+                vertex_counter++;
 
-            iter += 6;
+                if (vertex_counter >= 3) {
+                    // TODO: verify that normal is read
+                    return true;
+                }
+            }
+            // TODO: read normal vector
+
+            iter++;
         }
 
         return false;
-        // int vertex_counter = 0;
-
-        // while (vertex_counter < 3) {
-        //     std::string token;
-        //     ss >> token;
-
-        //    if (!ss)
-        //        break;
-
-        //    if (token == "vertex") {
-        //        if (ss >> res->vertices[vertex_counter][0] >> res->vertices[vertex_counter][1] >> res->vertices[vertex_counter][2]) {
-        //            vertex_counter++;
-        //        } else {
-        //            return false;
-        //        }
-        //    } else if (token == "normal") {
-        //    }
-        //}
-
-        // return vertex_counter == 3;
     }
-    //};
 };
 
 std::unique_ptr<File_Reader> create_reader(const char* filepath)
