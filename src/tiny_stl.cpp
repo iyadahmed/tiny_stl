@@ -1,3 +1,4 @@
+#include <memory>
 #include <stdexcept>
 #include <stdio.h>
 #include <string.h> // for memcmp
