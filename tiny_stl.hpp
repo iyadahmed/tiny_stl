@@ -20,6 +20,11 @@ struct Triangle {
 class File_Reader {
 public:
     virtual bool read_next_triangle(Triangle* t) = 0;
+
+    // NOTE: Abstract class destrctor must be virtual,
+    // otherwise, subclasses' destructors won't be called :/
+    // https://stackoverflow.com/a/25220259/8094047
+    virtual ~File_Reader() { }
 };
 
 std::unique_ptr<File_Reader> create_reader(const char* filepath);
