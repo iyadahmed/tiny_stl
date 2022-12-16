@@ -8,4 +8,4 @@ endif()
 
 add_subdirectory("fast_float")
 add_subdirectory("src")
-add_subdirectory("apps")
+add_subdirectory("example")
