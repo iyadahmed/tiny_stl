@@ -89,8 +89,9 @@ public:
                 }
             }
             // TODO: read normal vector
-
-            iter++;
+            else {
+                iter++;
+            }
         }
 
         return false;
