@@ -7,8 +7,8 @@
 namespace STL_Mesh_IO {
 
 struct Triangle {
-    float normal[3];
-    float vertices[3][3];
+    float normal[3] {};
+    float vertices[3][3] {};
     uint16_t attribute_byte_count = 0;
 };
 
