@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.16)
 project(tiny_stl)
 
-add_subdirectory("fast_float")
-add_subdirectory("tiny_stl")
-add_subdirectory("example")
+add_library(tiny_stl "tiny_stl.cpp" "tiny_stl.hpp")
+add_executable(example "example.cpp")
+target_link_libraries(example tiny_stl)
