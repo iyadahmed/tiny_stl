@@ -6,11 +6,6 @@
 
 namespace STL_Mesh_IO {
 
-enum class File_Type {
-    BINARY,
-    ASCII,
-};
-
 struct Triangle {
     float normal[3];
     float vertices[3][3];
