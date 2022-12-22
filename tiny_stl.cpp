@@ -9,7 +9,7 @@ namespace STL_Mesh_IO {
 
 class Binary_File_Reader : public File_Reader {
 private:
-    FILE* file = NULL;
+    FILE* m_file = NULL;
 
 public:
     // Make instances non-copyable
@@ -18,7 +18,7 @@ public:
 
     Binary_File_Reader(FILE* file)
     {
-        this->file = file;
+        this->m_file = file;
         if (fseek(file, 84, SEEK_SET) != 0) {
             throw std::runtime_error("Failed to seek file");
         }
@@ -26,26 +26,26 @@ public:
 
     ~Binary_File_Reader()
     {
-        if (file) {
-            fclose(file);
+        if (m_file) {
+            fclose(m_file);
         }
     }
 
     bool read_next_triangle(Triangle* res)
     {
         bool success = true;
-        success = success && (fread(res->normal, sizeof(float[3]), 1, file) == 1);
-        success = success && (fread(res->vertices, sizeof(float[3][3]), 1, file) == 1);
-        success = success && (fread(&res->attribute_byte_count, sizeof(uint16_t), 1, file) == 1);
+        success = success && (fread(res->normal, sizeof(float[3]), 1, m_file) == 1);
+        success = success && (fread(res->vertices, sizeof(float[3][3]), 1, m_file) == 1);
+        success = success && (fread(&res->attribute_byte_count, sizeof(uint16_t), 1, m_file) == 1);
         return success;
     }
 };
 
 class ASCII_File_Reader : public File_Reader {
 private:
-    char* buffer = NULL;
-    char* iter = NULL;
-    long buffer_size = 0;
+    char* m_buffer = NULL;
+    char* m_iter = NULL;
+    long m_buffer_size = 0;
 
 public:
     // Make instances non-copyable
@@ -62,9 +62,9 @@ public:
             throw std::runtime_error("File too short");
         }
 
-        buffer_size = file_size;
-        iter = buffer = new char[file_size];
-        if (fread(buffer, file_size, 1, file) != 1) {
+        m_buffer_size = file_size;
+        m_iter = m_buffer = new char[file_size];
+        if (fread(m_buffer, file_size, 1, file) != 1) {
             fclose(file);
             throw std::runtime_error("Failed to read from file");
         }
@@ -73,21 +73,21 @@ public:
 
     ~ASCII_File_Reader()
     {
-        if (buffer) {
-            delete[] buffer;
+        if (m_buffer) {
+            delete[] m_buffer;
         }
     }
 
     bool read_next_triangle(Triangle* res)
     {
         int vertex_counter = 0;
-        while (iter < (buffer + buffer_size - 6)) {
-            if (memcmp(iter, "vertex", 6) == 0) {
-                iter += 6;
+        while (m_iter < (m_buffer + m_buffer_size - 6)) {
+            if (memcmp(m_iter, "vertex", 6) == 0) {
+                m_iter += 6;
 
                 char* endptr = NULL;
                 // TODO: strtof error checking
-                res->vertices[vertex_counter][0] = strtof(iter, &endptr);
+                res->vertices[vertex_counter][0] = strtof(m_iter, &endptr);
                 res->vertices[vertex_counter][1] = strtof(endptr, &endptr);
                 res->vertices[vertex_counter][2] = strtof(endptr, &endptr);
                 vertex_counter++;
@@ -99,7 +99,7 @@ public:
             }
             // TODO: read normal vector
             else {
-                iter++;
+                m_iter++;
             }
         }
 
