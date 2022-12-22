@@ -1,7 +1,6 @@
 #pragma once
 
 #include <memory>
-#include <stdexcept>
 #include <stdint.h>
 
 namespace STL_Mesh_IO {
