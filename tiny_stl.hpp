@@ -1,7 +1,7 @@
 #pragma once
 
+#include <cstdint>
 #include <memory>
-#include <stdint.h>
 
 namespace STL_Mesh_IO {
 

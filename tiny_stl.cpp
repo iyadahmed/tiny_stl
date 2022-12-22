@@ -1,7 +1,7 @@
+#include <cstdio>
+#include <cstring> // for memcmp
 #include <memory>
 #include <stdexcept>
-#include <stdio.h>
-#include <string.h> // for memcmp
 
 #include "tiny_stl.hpp"
 
