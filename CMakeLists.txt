@@ -48,7 +48,7 @@ if(CMAKE_COMPILER_IS_GNUCC)
             -Wcast-align=strict
             -U_FORTIFY_SOURCE
             -D_FORTIFY_SOURCE=3
-            -fstack-protector-strong
+#            -fstack-protector-strong
             -fstack-clash-protection
             -fPIE
             -fsanitize=bounds
