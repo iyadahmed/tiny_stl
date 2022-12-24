@@ -134,7 +134,7 @@ std::unique_ptr<File_Reader> create_reader(const char* filepath)
         throw std::runtime_error("Failed to get file size");
     }
 
-    if (file_size == (84 + num_tris * 50)) {
+    if ((size_t)file_size == (84 + num_tris * 50)) {
         return std::make_unique<Binary_File_Reader>(file);
     } else {
         return std::make_unique<ASCII_File_Reader>(file, file_size);
