@@ -25,14 +25,14 @@ public:
         }
     }
 
-    ~Binary_File_Reader()
+    ~Binary_File_Reader() override
     {
         if (m_file) {
             fclose(m_file);
         }
     }
 
-    bool read_next_triangle(Triangle* res)
+    bool read_next_triangle(Triangle* res) override
     {
         bool success = true;
         success = success && (fread(res->normal, sizeof(float[3]), 1, m_file) == 1);
@@ -72,14 +72,14 @@ public:
         fclose(file);
     }
 
-    ~ASCII_File_Reader()
+    ~ASCII_File_Reader() override
     {
         if (m_buffer) {
             delete[] m_buffer;
         }
     }
 
-    bool read_next_triangle(Triangle* res)
+    bool read_next_triangle(Triangle* res) override
     {
         int vertex_counter = 0;
         while (m_iter < (m_buffer + m_buffer_size - 6)) {
