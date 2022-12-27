@@ -2,6 +2,7 @@
 #include <cstring> // for memcmp
 #include <memory>
 #include <stdexcept>
+#include <cassert>
 
 #include "tiny_stl.hpp"
 
@@ -45,14 +46,14 @@ class ASCII_File_Reader : public File_Reader {
 private:
     char* m_buffer = NULL;
     char* m_iter = NULL;
-    long m_buffer_size = 0;
+    size_t m_buffer_size = 0;
 
 public:
     // Make instances non-copyable
     ASCII_File_Reader(const ASCII_File_Reader&) = delete;
     ASCII_File_Reader& operator=(const ASCII_File_Reader&) = delete;
 
-    ASCII_File_Reader(FILE* file, long file_size)
+    ASCII_File_Reader(FILE* file, size_t file_size)
     {
         if (fseek(file, 0, SEEK_SET) != 0) {
             throw std::runtime_error("Failed to seek file");
@@ -134,6 +135,7 @@ std::unique_ptr<File_Reader> create_reader(const char* filepath)
         throw std::runtime_error("Failed to get file size");
     }
 
+    assert(file_size >= 0);
     if ((size_t)file_size == (84 + num_tris * 50)) {
         return std::make_unique<Binary_File_Reader>(file);
     } else {
