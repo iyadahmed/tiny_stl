@@ -1,12 +1,16 @@
 #pragma once
 
-class NonCopyable {
-public:
-    NonCopyable() = default;
+namespace Tiny_STL {
 
-    ~NonCopyable() = default;
+    class NonCopyable {
+    public:
+        NonCopyable() = default;
 
-    NonCopyable(const NonCopyable &) = delete;
+        ~NonCopyable() = default;
 
-    NonCopyable &operator=(const NonCopyable &) = delete;
-};
+        NonCopyable(const NonCopyable &) = delete;
+
+        NonCopyable &operator=(const NonCopyable &) = delete;
+    };
+
+}
