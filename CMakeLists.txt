@@ -3,17 +3,17 @@ project(tiny_stl)
 
 add_library(tiny_stl "tiny_stl.cpp" "tiny_stl.hpp")
 set_target_properties(
-  tiny_stl
-  PROPERTIES CXX_STANDARD 14
-             CXX_STANDARD_REQUIRED YES
-             CXX_EXTENSIONS NO)
+        tiny_stl
+        PROPERTIES CXX_STANDARD 14
+        CXX_STANDARD_REQUIRED YES
+        CXX_EXTENSIONS NO)
 
 # https://airbus-seclab.github.io/c-compiler-security/
 # TODO: Enable stricter flags for clang
-if(CMAKE_COMPILER_IS_GNUCC)
-  target_compile_options(
-    tiny_stl
-    PRIVATE -Wdouble-promotion
+if (CMAKE_COMPILER_IS_GNUCC)
+    target_compile_options(
+            tiny_stl
+            PRIVATE -Wdouble-promotion
             -fno-common
             -O2
             -Werror
@@ -48,7 +48,7 @@ if(CMAKE_COMPILER_IS_GNUCC)
             -Wcast-align=strict
             -U_FORTIFY_SOURCE
             -D_FORTIFY_SOURCE=3
-#            -fstack-protector-strong
+            #            -fstack-protector-strong
             -fstack-clash-protection
             -fPIE
             -fsanitize=bounds
@@ -57,9 +57,9 @@ if(CMAKE_COMPILER_IS_GNUCC)
             -Wl,-z,now
             -Wl,-z,noexecstack
             -Wl,-z,separate-code)
-elseif(MSVC)
-  target_compile_options(tiny_stl PRIVATE /Wall /guard:cf /guard:ehcont)
-endif()
+elseif (MSVC)
+    target_compile_options(tiny_stl PRIVATE /Wall /guard:cf /guard:ehcont)
+endif ()
 
 add_executable(example "example.cpp")
 target_link_libraries(example tiny_stl)
