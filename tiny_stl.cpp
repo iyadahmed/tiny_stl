@@ -5,19 +5,15 @@
 #include <cassert>
 
 #include "tiny_stl.hpp"
+#include "non_copyable.hpp"
 
 namespace STL_Mesh_IO {
 
-    class Binary_File_Reader : public File_Reader {
+    class Binary_File_Reader : public File_Reader, public NonCopyable {
     private:
         FILE *m_file = NULL;
 
     public:
-        // Make instances non-copyable
-        Binary_File_Reader(const Binary_File_Reader &) = delete;
-
-        Binary_File_Reader &operator=(const Binary_File_Reader &) = delete;
-
         Binary_File_Reader(FILE *file) {
             this->m_file = file;
             if (fseek(file, 84, SEEK_SET) != 0) {
@@ -40,18 +36,13 @@ namespace STL_Mesh_IO {
         }
     };
 
-    class ASCII_File_Reader : public File_Reader {
+    class ASCII_File_Reader : public File_Reader, public NonCopyable {
     private:
         char *m_buffer = NULL;
         char *m_iter = NULL;
         size_t m_buffer_size = 0;
 
     public:
-        // Make instances non-copyable
-        ASCII_File_Reader(const ASCII_File_Reader &) = delete;
-
-        ASCII_File_Reader &operator=(const ASCII_File_Reader &) = delete;
-
         ASCII_File_Reader(FILE *file, size_t file_size) {
             if (fseek(file, 0, SEEK_SET) != 0) {
                 throw std::runtime_error("Failed to seek file");

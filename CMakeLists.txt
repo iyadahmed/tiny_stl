@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.16)
 project(tiny_stl)
 
-add_library(tiny_stl "tiny_stl.cpp" "tiny_stl.hpp")
+add_library(tiny_stl "tiny_stl.cpp" "tiny_stl.hpp" "non_copyable.hpp")
 set_target_properties(
         tiny_stl
         PROPERTIES CXX_STANDARD 14
