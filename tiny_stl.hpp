@@ -3,7 +3,7 @@
 #include <cstdint>
 #include <memory>
 
-namespace STL_Mesh_IO {
+namespace Tiny_STL {
 
     struct Triangle {
         float normal[3]{};

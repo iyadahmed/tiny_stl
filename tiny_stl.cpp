@@ -7,7 +7,7 @@
 #include "tiny_stl.hpp"
 #include "non_copyable.hpp"
 
-namespace STL_Mesh_IO {
+namespace Tiny_STL {
 
     class Binary_File_Reader : public File_Reader, public NonCopyable {
     private:

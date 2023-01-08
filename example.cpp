@@ -8,8 +8,8 @@ int main(int argc, char* argv[]) {
     }
 
     const char* filepath = argv[1];
-    auto reader = STL_Mesh_IO::create_reader(filepath);
-    STL_Mesh_IO::Triangle t;
+    auto reader = Tiny_STL::create_reader(filepath);
+    Tiny_STL::Triangle t;
     int n = 0;
     while (reader->read_next_triangle(&t)) {
         n++;
