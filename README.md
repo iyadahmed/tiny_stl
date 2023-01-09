@@ -8,7 +8,7 @@ Example:
 
 int main(int argc, char* argv[]) {
     if (argc != 2) {
-        puts("Not enough args");
+        puts("Expected arguments: path/to/mesh.stl");
         return 1;
     }
 
@@ -19,7 +19,7 @@ int main(int argc, char* argv[]) {
     while (reader->read_next_triangle(&t)) {
         n++;
     }
-    printf("Number of triangle: %d\n", n);
+    printf("Number of triangles: %d\n", n);
     return 0;
 }
 ```
