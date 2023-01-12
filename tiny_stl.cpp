@@ -21,7 +21,7 @@ namespace Tiny_STL {
 
     class Binary_File_Reader : public File_Reader, public NonCopyable {
     private:
-        FILE *m_file = NULL;
+        FILE *m_file = nullptr;
 
     public:
         Binary_File_Reader(FILE *file) {
@@ -48,8 +48,8 @@ namespace Tiny_STL {
 
     class ASCII_File_Reader : public File_Reader, public NonCopyable {
     private:
-        char *m_buffer = NULL;
-        char *m_iter = NULL;
+        char *m_buffer = nullptr;
+        char *m_iter = nullptr;
         size_t m_buffer_size = 0;
 
     public:
@@ -83,7 +83,7 @@ namespace Tiny_STL {
                 if (memcmp(m_iter, "vertex", 6) == 0) {
                     m_iter += 6;
 
-                    char *endptr = NULL;
+                    char *endptr = nullptr;
                     // TODO: strtof error checking
                     res->vertices[vertex_counter][0] = strtof(m_iter, &endptr);
                     res->vertices[vertex_counter][1] = strtof(endptr, &endptr);
