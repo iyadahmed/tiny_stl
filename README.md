@@ -1,6 +1,3 @@
-# tiny_stl
-A small library for reading .stl 3d mesh file format
-
 Example:
 ```cpp
 #include <cstdio>
