@@ -86,15 +86,15 @@ namespace Tiny_STL {
                     res->vertices[vertex_counter][1] = strtof(endptr, &endptr);
                     res->vertices[vertex_counter][2] = strtof(endptr, &endptr);
                     vertex_counter++;
-
-                    if (vertex_counter >= 3) {
-                        // TODO: verify that normal is read
-                        return true;
-                    }
                 }
                     // TODO: read normal vector
                 else {
                     m_iter++;
+                }
+
+                if (vertex_counter >= 3) {
+                    // TODO: verify that normal is read
+                    return true;
                 }
             }
 
