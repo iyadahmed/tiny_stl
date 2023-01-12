@@ -24,7 +24,7 @@ namespace Tiny_STL {
         FILE *m_file = nullptr;
 
     public:
-        Binary_File_Reader(FILE *file) {
+        explicit Binary_File_Reader(FILE *file) {
             this->m_file = file;
             if (fseek(file, 84, SEEK_SET) != 0) {
                 throw std::runtime_error("Failed to seek file");
