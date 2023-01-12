@@ -38,8 +38,7 @@ namespace Tiny_STL {
         }
 
         bool read_next_triangle(Triangle *res) override {
-            bool success = true;
-            success = success && (fread(res->normal, sizeof(float[3]), 1, m_file) == 1);
+            bool success = (fread(res->normal, sizeof(float[3]), 1, m_file) == 1);
             success = success && (fread(res->vertices, sizeof(float[3][3]), 1, m_file) == 1);
             success = success && (fread(&res->attribute_byte_count, sizeof(uint16_t), 1, m_file) == 1);
             return success;
