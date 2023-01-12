@@ -72,9 +72,7 @@ namespace Tiny_STL {
         }
 
         ~ASCII_File_Reader() override {
-            if (m_buffer) {
-                delete[] m_buffer;
-            }
+            delete[] m_buffer;
         }
 
         bool read_next_triangle(Triangle *res) override {
