@@ -21,6 +21,18 @@ namespace Tiny_STL {
         virtual ~File_Reader() = default;
     };
 
+    class File_Writer {
+    public:
+        enum class Type {
+            BINARY, ASCII
+        };
+
+        virtual void write_triangle(const Triangle *t) = 0;
+
+        virtual ~File_Writer() = default;
+    };
+
     std::unique_ptr<File_Reader> create_reader(const char *filepath);
+    std::unique_ptr<File_Writer> create_writer(const char *filepath, File_Writer::Type type);
 
 }

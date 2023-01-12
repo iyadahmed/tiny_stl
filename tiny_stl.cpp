@@ -1,5 +1,6 @@
 #include <cstdio>
 #include <cstring> // for memcmp
+#include <string>  // for to_string
 #include <memory>
 #include <stdexcept>
 #include <cassert>
@@ -19,6 +20,7 @@ namespace Tiny_STL {
         NonCopyable &operator=(const NonCopyable &) = delete;
     };
 
+    // ****************************** Reading ******************************
     class Binary_File_Reader : public File_Reader, public NonCopyable {
     private:
         FILE *m_file = nullptr;
@@ -133,6 +135,55 @@ namespace Tiny_STL {
             return std::make_unique<Binary_File_Reader>(file);
         } else {
             return std::make_unique<ASCII_File_Reader>(file, file_size);
+        }
+    }
+
+    // ****************************** Writing ******************************
+    class ASCII_File_Writer : public File_Writer, public NonCopyable {
+    private:
+        FILE *m_file = nullptr;
+
+    public:
+        explicit ASCII_File_Writer(const char *filepath) {
+            m_file = fopen(filepath, "wt");
+            if (m_file == nullptr) {
+                throw std::runtime_error("Failed to open file");
+            }
+
+            fputs("solid \n", m_file);
+        }
+
+        void write_triangle(const Triangle *t) override {
+            fputs("facet normal", m_file);
+            for (auto value: t->normal) {
+                fputc(' ', m_file);
+                fputs(std::to_string(value).c_str(), m_file);
+            }
+            fputc('\n', m_file);
+            fputs("\touter loop\n", m_file);
+            for (auto vertex: t->vertices) {
+                fputs("\t\tvertex", m_file);
+                for (int i = 0; i < 3; i++) {
+                    fputc(' ', m_file);
+                    fputs(std::to_string(vertex[i]).c_str(), m_file);
+                }
+                fputc('\n', m_file);
+            }
+            fputs("\tend loop\n", m_file);
+        }
+
+        ~ASCII_File_Writer() override {
+            assert(m_file != nullptr);
+            fputs("endsolid \n", m_file);
+            fclose(m_file);
+        }
+    };
+
+    std::unique_ptr<File_Writer> create_writer(const char *filepath, File_Writer::Type type) {
+        if (type == File_Writer::Type::ASCII) {
+            return std::make_unique<ASCII_File_Writer>(filepath);
+        } else {
+            throw std::runtime_error("Not implemented");
         }
     }
 
