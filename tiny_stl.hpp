@@ -18,7 +18,7 @@ namespace Tiny_STL {
         // NOTE: Abstract class destructor must be virtual,
         // otherwise, subclasses' destructors won't be called :/
         // https://stackoverflow.com/a/25220259/8094047
-        virtual ~File_Reader() {}
+        virtual ~File_Reader() = default;
     };
 
     std::unique_ptr<File_Reader> create_reader(const char *filepath);
