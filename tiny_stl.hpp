@@ -15,7 +15,7 @@ namespace Tiny_STL {
     public:
         virtual bool read_next_triangle(Triangle *t) = 0;
 
-        // NOTE: Abstract class destrctor must be virtual,
+        // NOTE: Abstract class destructor must be virtual,
         // otherwise, subclasses' destructors won't be called :/
         // https://stackoverflow.com/a/25220259/8094047
         virtual ~File_Reader() {}
