@@ -5,9 +5,19 @@
 #include <cassert>
 
 #include "tiny_stl.hpp"
-#include "non_copyable.hpp"
 
 namespace Tiny_STL {
+
+    class NonCopyable {
+    public:
+        NonCopyable() = default;
+
+        ~NonCopyable() = default;
+
+        NonCopyable(const NonCopyable &) = delete;
+
+        NonCopyable &operator=(const NonCopyable &) = delete;
+    };
 
     class Binary_File_Reader : public File_Reader, public NonCopyable {
     private:
