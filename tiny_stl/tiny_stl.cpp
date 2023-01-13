@@ -1,6 +1,6 @@
 #include <cstdio>
 #include <cstring> // for memcmp
-#include <string>  // for to_string
+#include <fmt/os.h>
 #include <memory>
 #include <stdexcept>
 #include <cassert>
@@ -178,41 +178,30 @@ namespace Tiny_STL {
 
     class ASCII_File_Writer : public File_Writer, public NonCopyable {
     private:
-        FILE *m_file = nullptr;
+        fmt::ostream m_file;
 
     public:
-        explicit ASCII_File_Writer(const char *filepath) {
-            m_file = fopen(filepath, "wt");
-            if (m_file == nullptr) {
-                throw std::runtime_error("Failed to open file");
-            }
-
-            fputs("solid \n", m_file);
+        explicit ASCII_File_Writer(const char *filepath) : m_file(fmt::output_file(filepath)) {
+            m_file.print("solid \n");
         }
 
         void write_triangle(const Triangle *t) override {
-            fputs("facet normal", m_file);
-            for (auto value: t->normal) {
-                fputc(' ', m_file);
-                fputs(std::to_string(value).c_str(), m_file);
-            }
-            fputc('\n', m_file);
-            fputs("\touter loop\n", m_file);
-            for (auto vertex: t->vertices) {
-                fputs("\t\tvertex", m_file);
-                for (int i = 0; i < 3; i++) {
-                    fputc(' ', m_file);
-                    fputs(std::to_string(vertex[i]).c_str(), m_file);
-                }
-                fputc('\n', m_file);
-            }
-            fputs("\tend loop\n", m_file);
+            m_file.print("facet normal {} {} {}\n"
+                         "\touter loop\n"
+                         "\t\tvertex {} {} {}\n"
+                         "\t\tvertex {} {} {}\n"
+                         "\t\tvertex {} {} {}\n"
+                         "\tend loop\n",
+
+                         t->normal[0], t->normal[1], t->normal[2],
+                         t->vertices[0][0], t->vertices[0][1], t->vertices[0][2],
+                         t->vertices[1][0], t->vertices[1][1], t->vertices[1][2],
+                         t->vertices[2][0], t->vertices[2][1], t->vertices[2][2]
+            );
         }
 
         ~ASCII_File_Writer() override {
-            assert(m_file != nullptr);
-            fputs("endsolid \n", m_file);
-            fclose(m_file);
+            m_file.print("endsolid \n");
         }
     };
 
