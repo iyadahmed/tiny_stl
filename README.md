@@ -1,6 +1,7 @@
 How to use:  
 Can be added as a Git submodule  
 or using CMake FetchContent:
+
 ```cmake
 FETCHCONTENT_DECLARE(
         tiny_stl
@@ -14,6 +15,7 @@ target_link_libraries(your_target tiny_stl)
 ```
 
 Example:
+
 ```cpp
 #include <cstdio>
 #include "tiny_stl.hpp"
