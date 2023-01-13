@@ -1,3 +1,18 @@
+How to use:  
+Can be added as a Git submodule  
+or using CMake FetchContent:
+```cmake
+FETCHCONTENT_DECLARE(
+        tiny_stl
+        GIT_REPOSITORY https://github.com/iyadahmed/tiny_stl.git
+        GIT_TAG dee148c1af0629b47daed11d984ffcbd93df2a6a
+        GIT_SHALLOW ON
+        GIT_PROGRESS TRUE
+)
+FETCHCONTENT_MAKEAVAILABLE(tiny_stl)
+target_link_libraries(your_target tiny_stl)
+```
+
 Example:
 ```cpp
 #include <cstdio>
