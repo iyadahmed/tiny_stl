@@ -18,9 +18,11 @@ set_target_properties(
         tiny_stl
         PROPERTIES CXX_STANDARD 14
         CXX_STANDARD_REQUIRED YES
-        CXX_EXTENSIONS NO)
+        CXX_EXTENSIONS NO
+)
 
-# https://airbus-seclab.github.io/c-compiler-security/
+# Strict flags from https://airbus-seclab.github.io/c-compiler-security/
+# NOTE: some of the flags were removed because it caused libfmt to fail among other reasons
 # TODO: Enable stricter flags for clang
 if (CMAKE_COMPILER_IS_GNUCC)
     target_compile_options(
@@ -54,13 +56,11 @@ if (CMAKE_COMPILER_IS_GNUCC)
             -Wshadow
             -Wstrict-overflow=4
             -Wundef
-#            -Wswitch-default
             -Wswitch-enum
             -Wstack-usage=1000000
             -Wcast-align=strict
             -U_FORTIFY_SOURCE
             -D_FORTIFY_SOURCE=3
-            #            -fstack-protector-strong
             -fstack-clash-protection
             -fPIE
             -fsanitize=bounds
