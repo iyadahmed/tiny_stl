@@ -8,7 +8,6 @@ namespace Tiny_STL {
     struct Triangle {
         float normal[3]{};
         float vertices[3][3]{};
-        uint16_t attribute_byte_count = 0;
     };
 
     class File_Reader {

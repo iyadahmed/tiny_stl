@@ -43,7 +43,10 @@ namespace Tiny_STL {
         bool read_next_triangle(Triangle *res) override {
             bool success = (fread(res->normal, sizeof(float[3]), 1, m_file) == 1);
             success = success && (fread(res->vertices, sizeof(float[3][3]), 1, m_file) == 1);
-            success = success && (fread(&res->attribute_byte_count, sizeof(uint16_t), 1, m_file) == 1);
+
+            // Skip "attribute byte count", which is not stored in ASCII format,
+            // and is rarely used by binary format
+            success = success && (fseek(m_file, sizeof(uint16_t), SEEK_CUR) == 0);
             return success;
         }
     };
@@ -187,7 +190,9 @@ namespace Tiny_STL {
         void write_triangle(const Triangle *t) override {
             bool success = (fwrite(t->normal, sizeof(float[3]), 1, m_file) == 1);
             success = success && (fwrite(t->vertices, sizeof(float[3][3]), 1, m_file) == 1);
-            success = success && (fwrite(&t->attribute_byte_count, sizeof(uint16_t), 1, m_file) == 1);
+
+            uint16_t attribute_byte_count = 0;
+            success = success && (fwrite(&attribute_byte_count, sizeof(uint16_t), 1, m_file) == 1);
             if (success) {
                 num_tris++;
             }
