@@ -1,6 +1,4 @@
-How to use:  
-Can be added as a Git submodule  
-or using CMake FetchContent:
+# Using as a CMake dependency
 
 ```cmake
 FETCHCONTENT_DECLARE(
@@ -14,7 +12,7 @@ FETCHCONTENT_MAKEAVAILABLE(tiny_stl)
 target_link_libraries(your_target tiny_stl)
 ```
 
-Example:
+# Example:
 
 ```cpp
 #include <cstdio>
