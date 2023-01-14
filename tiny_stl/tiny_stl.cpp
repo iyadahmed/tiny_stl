@@ -191,7 +191,8 @@ namespace Tiny_STL {
                          "\t\tvertex {} {} {}\n"
                          "\t\tvertex {} {} {}\n"
                          "\t\tvertex {} {} {}\n"
-                         "\tendloop\n",
+                         "\tendloop\n"
+                         "endfacet\n",
 
                          t->normal[0], t->normal[1], t->normal[2],
                          t->vertices[0][0], t->vertices[0][1], t->vertices[0][2],
