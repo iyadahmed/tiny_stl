@@ -76,27 +76,36 @@ namespace Tiny_STL {
             delete[] m_buffer;
         }
 
+        static void read_float3(float out[3], const char *buf) {
+            char *endptr = nullptr;
+            // TODO: strtof error checking
+            out[0] = strtof(buf, &endptr);
+            out[1] = strtof(endptr, &endptr);
+            out[2] = strtof(endptr, &endptr);
+        }
+
         bool read_next_triangle(Triangle *res) override {
             int vertex_counter = 0;
+            int normal_counter = 0;
             while (m_iter < (m_buffer + m_buffer_size - 6)) {
                 if (memcmp(m_iter, "vertex", 6) == 0) {
                     m_iter += 6;
-
-                    char *endptr = nullptr;
-                    // TODO: strtof error checking
-                    res->vertices[vertex_counter][0] = strtof(m_iter, &endptr);
-                    res->vertices[vertex_counter][1] = strtof(endptr, &endptr);
-                    res->vertices[vertex_counter][2] = strtof(endptr, &endptr);
+                    read_float3(res->vertices[vertex_counter], m_iter);
                     vertex_counter++;
                 }
-                    // TODO: read normal vector
+                else if (memcmp(m_iter, "normal", 6) == 0) {
+                    m_iter += 6;
+                    read_float3(res->normal, m_iter);
+                    normal_counter++;
+                }
                 else {
                     m_iter++;
                 }
 
                 if (vertex_counter >= 3) {
-                    // TODO: verify that normal is read
-                    return true;
+                    // Normals should have been read before triangle vertices
+                    // and only one normal should have been read
+                    return (normal_counter == 1);
                 }
             }
 
