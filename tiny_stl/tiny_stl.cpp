@@ -82,7 +82,7 @@ namespace Tiny_STL {
 
         static const char * skip_control_chars_or_plus(const char *start, const char *end) {
             while (start < end) {
-                if (*start <= 32 || *start == '+') {
+                if (!(*start <= 32 || *start == '+')) {
                     break;
                 }
                 start++;
