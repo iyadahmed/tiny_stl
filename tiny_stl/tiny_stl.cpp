@@ -80,7 +80,7 @@ namespace Tiny_STL {
             delete[] m_buffer;
         }
 
-        static const char * skip_control_chars_or_plus(const char *start, const char *end) {
+        static const char *skip_control_chars_or_plus(const char *start, const char *end) {
             while (start < end) {
                 if (!(*start <= 32 || *start == '+')) {
                     break;
@@ -111,13 +111,11 @@ namespace Tiny_STL {
                     m_iter += 6;
                     read_float3(res->vertices[vertex_counter], m_iter, endptr);
                     vertex_counter++;
-                }
-                else if (memcmp(m_iter, "normal", 6) == 0) {
+                } else if (memcmp(m_iter, "normal", 6) == 0) {
                     m_iter += 6;
                     read_float3(res->normal, m_iter, endptr);
                     normal_counter++;
-                }
-                else {
+                } else {
                     m_iter++;
                 }
 

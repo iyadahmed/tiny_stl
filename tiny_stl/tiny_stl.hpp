@@ -32,6 +32,7 @@ namespace Tiny_STL {
     };
 
     std::unique_ptr<File_Reader> create_reader(const char *filepath);
+
     std::unique_ptr<File_Writer> create_writer(const char *filepath, File_Writer::Type type);
 
 }
