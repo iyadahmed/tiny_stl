@@ -4,6 +4,7 @@
 #include <memory>
 #include <stdexcept>
 #include <cassert>
+#include <fast_float/fast_float.h>
 
 #include "tiny_stl.hpp"
 
@@ -76,26 +77,41 @@ namespace Tiny_STL {
             delete[] m_buffer;
         }
 
-        static void read_float3(float out[3], const char *buf) {
-            char *endptr = nullptr;
-            // TODO: strtof error checking
-            out[0] = strtof(buf, &endptr);
-            out[1] = strtof(endptr, &endptr);
-            out[2] = strtof(endptr, &endptr);
+        static const char * skip_control_chars(const char *start, const char *end) {
+            while (start < end) {
+                if (*start > 32) {
+                    break;
+                }
+                start++;
+            }
+            return start;
+        }
+
+        static void read_float3(float out[3], const char *buf, const char *endptr) {
+            // TODO: error checking
+            buf = skip_control_chars(buf, endptr);
+            buf = fast_float::from_chars(buf, endptr, out[0]).ptr;
+
+            buf = skip_control_chars(buf, endptr);
+            buf = fast_float::from_chars(buf, endptr, out[1]).ptr;
+
+            buf = skip_control_chars(buf, endptr);
+            fast_float::from_chars(buf, endptr, out[2]);
         }
 
         bool read_next_triangle(Triangle *res) override {
             int vertex_counter = 0;
             int normal_counter = 0;
-            while (m_iter < (m_buffer + m_buffer_size - 6)) {
+            const char *endptr = m_buffer + m_buffer_size;
+            while (m_iter < (endptr - 6)) {
                 if (memcmp(m_iter, "vertex", 6) == 0) {
                     m_iter += 6;
-                    read_float3(res->vertices[vertex_counter], m_iter);
+                    read_float3(res->vertices[vertex_counter], m_iter, endptr);
                     vertex_counter++;
                 }
                 else if (memcmp(m_iter, "normal", 6) == 0) {
                     m_iter += 6;
-                    read_float3(res->normal, m_iter);
+                    read_float3(res->normal, m_iter, endptr);
                     normal_counter++;
                 }
                 else {
