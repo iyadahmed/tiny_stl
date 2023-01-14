@@ -6,7 +6,6 @@ FETCHCONTENT_DECLARE(
         fmt
         GIT_REPOSITORY https://github.com/fmtlib/fmt.git
         GIT_TAG a33701196adfad74917046096bf5a2aa0ab0bb50
-        GIT_SHALLOW ON
         GIT_PROGRESS TRUE
 )
 FETCHCONTENT_MAKEAVAILABLE(fmt)
@@ -15,7 +14,6 @@ FETCHCONTENT_DECLARE(
         fast_float
         GIT_REPOSITORY https://github.com/fastfloat/fast_float.git
         GIT_TAG 08c47edf570aedfffc7dc1fbbed5cad9be691840
-        GIT_SHALLOW ON
         GIT_PROGRESS TRUE
 )
 FETCHCONTENT_MAKEAVAILABLE(fast_float)
