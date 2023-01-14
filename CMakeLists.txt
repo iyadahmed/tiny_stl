@@ -5,7 +5,7 @@ include(FetchContent)
 FETCHCONTENT_DECLARE(
         fmt
         GIT_REPOSITORY https://github.com/fmtlib/fmt.git
-        GIT_TAG 676c2a107e9575663f79095d9b2c9d15168e1285
+        GIT_TAG a33701196adfad74917046096bf5a2aa0ab0bb50
         GIT_SHALLOW ON
         GIT_PROGRESS TRUE
 )
@@ -20,58 +20,6 @@ set_target_properties(
         CXX_STANDARD_REQUIRED YES
         CXX_EXTENSIONS NO
 )
-
-# Strict flags from https://airbus-seclab.github.io/c-compiler-security/
-# NOTE: some of the flags were removed because it caused libfmt to fail among other reasons
-# TODO: Enable stricter flags for clang
-if (CMAKE_COMPILER_IS_GNUCC)
-    target_compile_options(
-            tiny_stl
-            PRIVATE -Wdouble-promotion
-            -fno-common
-            -O2
-            -Werror
-            -Wall
-            -Wextra
-            -Wpedantic
-            -Wformat=2
-            -Wformat-overflow=2
-            -Wformat-truncation=2
-            -Wformat-security
-            -Wnull-dereference
-            -Wstack-protector
-            -Wtrampolines
-            -Walloca
-            -Wvla
-            -Warray-bounds=2
-            -Wimplicit-fallthrough=3
-            -Wshift-overflow=2
-            -Wcast-qual
-            -Wstringop-overflow=4
-            -Wconversion
-            -Wlogical-op
-            -Wduplicated-cond
-            -Wduplicated-branches
-            -Wformat-signedness
-            -Wshadow
-            -Wstrict-overflow=4
-            -Wundef
-            -Wswitch-enum
-            -Wstack-usage=1000000
-            -Wcast-align=strict
-            -U_FORTIFY_SOURCE
-            -D_FORTIFY_SOURCE=3
-            -fstack-clash-protection
-            -fPIE
-            -fsanitize=bounds
-            -fsanitize-undefined-trap-on-error
-            -Wl,-z,relro
-            -Wl,-z,now
-            -Wl,-z,noexecstack
-            -Wl,-z,separate-code)
-elseif (MSVC)
-    target_compile_options(tiny_stl PRIVATE /Wall /guard:cf /guard:ehcont)
-endif ()
 
 add_executable(example "example.cpp")
 target_link_libraries(example tiny_stl)
