@@ -1,8 +1,11 @@
 #include <cstdio>
+
 #include "tiny_stl.hpp"
 
-int main(int argc, char *argv[]) {
-    if (argc != 4) {
+int main(int argc, char *argv[])
+{
+    if (argc != 4)
+    {
         puts("Expected arguments: input.stl binary_output.stl ascii_output.stl");
         return 1;
     }
@@ -16,7 +19,8 @@ int main(int argc, char *argv[]) {
     auto ascii_writer = Tiny_STL::create_writer(ascii_output_filepath, Tiny_STL::File_Writer::Type::ASCII);
 
     Tiny_STL::Triangle t;
-    while (reader->read_next_triangle(&t)) {
+    while (reader->read_next_triangle(&t))
+    {
         binary_writer->write_triangle(&t);
         ascii_writer->write_triangle(&t);
     }
