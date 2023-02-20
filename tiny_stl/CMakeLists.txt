@@ -1,6 +1,3 @@
-cmake_minimum_required(VERSION 3.16)
-project(Tiny_STL)
-
 include(FetchContent)
 
 # TODO: distribute fmt and fast_float in "extern" folder instead
