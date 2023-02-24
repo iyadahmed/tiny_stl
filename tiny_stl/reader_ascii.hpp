@@ -1,6 +1,6 @@
 #pragma once
 
-#include <fast_float/fast_float.h>
+#include <fast_float.h>
 
 #include "non_copyable.hpp"
 #include "tiny_stl.hpp"
